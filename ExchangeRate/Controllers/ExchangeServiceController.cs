@@ -26,9 +26,6 @@ namespace ExchangeRate.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]ExchangeRateRequest request)
         {
-            if (request.InputCurrency == null)
-                return BadRequest();
-
             var inputCurrency = Enum.Parse<Currency>(request.InputCurrency);
             var outputCurrency = Enum.Parse<Currency>(request.OutputCurrency);
             var converted = await _currencyConverter.ConvertCurrency(new Money(inputCurrency, request.Amount), outputCurrency);
